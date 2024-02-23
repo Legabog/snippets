@@ -2,11 +2,12 @@ import { FC } from "react";
 import Head from "next/head";
 import { Inter } from "next/font/google";
 
+import "@/styles/globals.css";
 import { Props } from "./types";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export const Layout: FC<Props> = ({ children }) => {
+const Layout: FC<Props> = ({ children }) => {
   return (
     <html lang="en">
       <Head>
@@ -19,3 +20,4 @@ export const Layout: FC<Props> = ({ children }) => {
     </html>
   );
 };
+export default Layout
