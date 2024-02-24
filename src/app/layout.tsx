@@ -4,10 +4,11 @@ import { Inter } from "next/font/google";
 
 import "@/styles/globals.css";
 import { Props } from "./types";
+import { Providers } from "@/providers";
 
 const inter = Inter({ subsets: ["latin"] });
 
-const Layout: FC<Props> = ({ children }) => {
+const RootLayout: FC<Props> = ({ children }) => {
   return (
     <html lang="en">
       <Head>
@@ -15,9 +16,11 @@ const Layout: FC<Props> = ({ children }) => {
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <body className={inter.className}>
-        <div className="container mx-auto px-4 py-12">{children}</div>
+        <Providers>
+          <div className="container mx-auto px-4 py-12">{children}</div>
+        </Providers>
       </body>
     </html>
   );
 };
-export default Layout
+export default RootLayout;
