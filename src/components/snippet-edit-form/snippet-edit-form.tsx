@@ -12,7 +12,7 @@ export const SnippetEditForm: FC<Props> = ({ snippet }) => {
 
   const onChangeEditor = (value: string = "") => setCode(value);
   const onClickSave = async () => {
-    await lib.snippet.edit(id, code);
+    await lib.snippet._edit(id, code);
   }
 
   return (

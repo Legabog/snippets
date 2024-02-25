@@ -3,11 +3,11 @@ import { redirect } from "next/navigation";
 
 import { db } from "@/db";
 
-export const edit = async (id: number, code: string) => {
+export const _edit = async (id: number, code: string) => {
   console.log('id', id);
   console.log('code', code);
   
-  db.snippet.update({
+  await db.snippet.update({
     where: {
       id: Number(id),
     },
@@ -17,4 +17,14 @@ export const edit = async (id: number, code: string) => {
   })
 
   redirect(`/snippets/${id}`);;
+};
+
+export const _delete = async (id: number) => {  
+  await db.snippet.delete({
+    where: {
+      id
+    }
+   })
+
+  redirect(`/`);;
 };

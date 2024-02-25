@@ -1,11 +1,12 @@
 import { FC } from "react";
 import { Snippet } from "@prisma/client";
+import Link from "next/link";
 import { notFound } from "next/navigation";
+import { Button, Code } from "@nextui-org/react";
 
 import { db } from "@/db";
+import * as lib from "@/lib";
 import { Props } from "./types";
-import { Code } from "@nextui-org/react";
-import Link from "next/link";
 
 const ViewSnippet: FC<Props> = async ({ params }) => {
   const { id } = params;
@@ -18,6 +19,8 @@ const ViewSnippet: FC<Props> = async ({ params }) => {
   });
 
   if (!snippet) return notFound();
+
+  const action = lib.snippet._delete.bind(null, Number(id));
 
   const renderSnippet = () => {
     const phrase: { [key in keyof Snippet]?: string } = {
@@ -46,17 +49,19 @@ const ViewSnippet: FC<Props> = async ({ params }) => {
 
   return (
     <div>
-      <div className="flex justify-end gap-6">
-        <Link
-          href={`/snippets/${id}/edit`}
-          className="border p-2 border-rounded"
-        >
-          Edit
-        </Link>
-        <Link href={"/snippets/delete"} className="border p-2 border-rounded">
-          Delete
-        </Link>
-      </div>
+      <form action={action}>
+        <div className="flex justify-end gap-6">
+          <Link
+            href={`/snippets/${id}/edit`}
+            className="border p-2 border-rounded"
+          >
+            Edit
+          </Link>
+          <Button type="submit" color="danger">
+            Delete
+          </Button>
+        </div>
+      </form>
       {renderSnippet()}
     </div>
   );
