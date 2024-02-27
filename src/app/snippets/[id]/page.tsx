@@ -8,10 +8,13 @@ import { db } from "@/db";
 import * as lib from "@/lib";
 import { Props } from "./types";
 
+export const generateStaticParams = async () => {
+  const snippets = await db.snippet.findMany({});
+  return snippets.map(({ id }) => ({ id: String(id) })) as { id: string }[];
+};
+
 const ViewSnippet: FC<Props> = async ({ params }) => {
   const { id } = params;
-  await new Promise((resolve) => setTimeout(resolve, 2000));
-
   const snippet = await db.snippet.findFirst({
     where: {
       id: Number(id),
